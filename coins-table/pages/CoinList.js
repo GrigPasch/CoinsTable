@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Coins from './Coins';
+import PropTypes from 'prop-types';
 
 const CoinList = ({ coinsData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -7,9 +8,9 @@ const CoinList = ({ coinsData }) => {
 
   const indexOfLastCoin = currentPage * coinsPerPage;
   const indexOfFirstCoin = indexOfLastCoin - coinsPerPage;
-  const currentCoins = coinsData.slice(indexOfFirstCoin, indexOfLastCoin);
+  const currentCoins = Array.isArray(coinsData) ? coinsData.slice(indexOfFirstCoin, indexOfLastCoin) : [];
 
-  const totalPages = Math.ceil(coinsData.length / coinsPerPage);
+  const totalPages = Math.ceil(Array.isArray(coinsData) ? coinsData.length / coinsPerPage : 0);
 
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -31,6 +32,21 @@ const CoinList = ({ coinsData }) => {
       );
     }
     return pageNumbers;
+  };
+
+  CoinList.propTypes = {
+    coinsData: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        symbol: PropTypes.string.isRequired,
+        current_price: PropTypes.number.isRequired,
+        high_24h: PropTypes.number.isRequired,
+        low_24h: PropTypes.number.isRequired,
+        price_change_percentage_24h: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
+      })
+    ).isRequired,
   };
 
   return (
