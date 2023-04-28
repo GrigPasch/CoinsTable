@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 const Coins = ({name, symbol, price, highestPrice, lowestPrice, priceChangePercentage, image}) => {
 
     return (
@@ -28,10 +29,10 @@ const Coins = ({name, symbol, price, highestPrice, lowestPrice, priceChangePerce
                 <tbody>
                     <tr className="bg-white border-b ">
                         <td className="px-6 py-6">
-                            {name}
+                            <a href="">{name}</a>
                         </td>
                         <td className="px-6 py-6 flex flex-col justify-center items-center">
-                            <img className="w-[35px] h-[35px]"src={image}/>    
+                            <img className="w-[35px] h-[35px]" src={image} alt={symbol} />    
                             <p>{symbol}</p>
                         </td>
                         <td className="px-6 py-6">
